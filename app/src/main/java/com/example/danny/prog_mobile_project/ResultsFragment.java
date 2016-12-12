@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -76,7 +77,10 @@ public class ResultsFragment extends Fragment {
                         Bundle bundle = new Bundle();
                         int index = (int) listView.getSelectedItemId();
                         bundle.putString("title", jsonArray.getJSONObject(index).getJSONObject("show").getString("name"));
-                        bundle.putString("description", jsonArray.getJSONObject(index).getJSONObject("show").getString("summary"));
+                        bundle.putString("description", jsonArray.getJSONObject(index).getJSONObject("show").getString("summary").replace("<p>", "").replace("</p>", ""));
+                        bundle.putString("image", jsonArray.getJSONObject(index).getJSONObject("show").getJSONObject("image").getString("medium"));
+                        bundle.putString("score", jsonArray.getJSONObject(index).getJSONObject("show").getJSONObject("rating").getString("average"));
+                        bundle.putString("genre", jsonArray.getJSONObject(index).getJSONObject("show").getJSONArray("genres").toString().replace("\",\"", ", ").replace("[\"","").replace("\"]",""));
                         SerieFragment fragment = new SerieFragment();
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

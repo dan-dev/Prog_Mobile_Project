@@ -5,24 +5,51 @@
     tools:context="com.example.danny.prog_mobile_project.SerieFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <ImageView
+        android:id="@+id/image"
+
+        android:layout_width="175dp"
+        android:layout_height="250dp" />
+
     <TextView
         android:id="@+id/text_title"
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/text_description"
-
-        android:layout_below="@+id/text_title"
+        android:layout_toRightOf="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/text_genre"
 
-        android:layout_below="@+id/text_description"
+        android:layout_below="@+id/text_title"
+        android:layout_toRightOf="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/text_status"
+
+        android:layout_toRightOf="@+id/image"
+        android:layout_below="@+id/text_genre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/text_score"
+
+        android:layout_below="@id/text_status"
+        android:layout_toRightOf="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/text_description"
+
+        android:layout_below="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
 
 </RelativeLayout>
