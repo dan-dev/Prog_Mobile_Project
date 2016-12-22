@@ -1,9 +1,7 @@
 package com.example.danny.prog_mobile_project;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class NavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -103,6 +102,16 @@ public class NavigationDrawer extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
+            DataBaseBuilder dataBaseBuilder = new DataBaseBuilder(this);
+
+            /*SQLiteDatabase liteDatabase = null;
+            liteDatabase = this.openOrCreateDatabase("DatabaseName", MODE_PRIVATE, null);
+
+            liteDatabase.execSQL("CREATE TABLE IF NOT EXISTS series (serie VARCHAR, state VARCHAR, count INTEGER);");
+
+            liteDatabase.execSQL("INSERT INTO series (serie, state, count) VALUES ('Scrubs', 'Finished', 15)");*/
+
+            Toast.makeText(this, "Database created.", Toast.LENGTH_SHORT);
 
         } else if (id == R.id.nav_send) {
 
