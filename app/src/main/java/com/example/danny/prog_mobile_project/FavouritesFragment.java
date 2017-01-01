@@ -1,6 +1,6 @@
 package com.example.danny.prog_mobile_project;
 
-
+import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -33,11 +33,7 @@ public class FavouritesFragment extends Fragment {
 
         textView = (TextView) view.findViewById(R.id.favourite);
 
-        DataBaseBuilder liteDatabase = new DataBaseBuilder(getActivity());
-
-        SQLiteDatabase db = liteDatabase.getReadableDatabase();
-
-        Cursor cursor = db.rawQuery("SELECT * FROM series", null);
+        DataBaseBuilder db = new DataBaseBuilder(getActivity());
 
         /*if(cursor.moveToFirst()){
             while(cursor.moveToNext()){
@@ -45,9 +41,8 @@ public class FavouritesFragment extends Fragment {
             }
         }*/
 
-        textView.setText(cursor.getString(cursor.getColumnIndex("serie")
-                + cursor.getColumnIndex("state") + cursor.getColumnIndex("count")));
-
+        /*textView.setText(cursor.getString(cursor.getColumnIndex("serie")
+                + cursor.getColumnIndex("state") + cursor.getColumnIndex("count")));*/
         return view;
     }
 
