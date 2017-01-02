@@ -9,18 +9,18 @@
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Favourites" />
-        <item
+            android:title="My list" />
+        <!--<item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="[blank]" />
-        <item
+            android:title="[blank]" />-->
+        <!--<item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="[blank]" />
+            android:title="[blank]" />-->
     </group>
 
-    <item android:title="[blank]">
+    <!--<item android:title="[blank]">
         <menu>
             <item
                 android:id="@+id/nav_share"
@@ -31,6 +31,6 @@
                 android:icon="@drawable/ic_menu_send"
                 android:title="[blank]" />
         </menu>
-    </item>
+    </item>-->
 
 </menu>

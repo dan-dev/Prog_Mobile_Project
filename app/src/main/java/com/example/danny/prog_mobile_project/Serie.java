@@ -1,18 +1,16 @@
 package com.example.danny.prog_mobile_project;
 
-/**
- * Created by Danny on 31/12/2016.
- */
-
 public class Serie {
     int id;
     String state;
+    String name;
 
     public Serie(){ }
 
-    public Serie(int id, String state) {
+    public Serie(int id, String state, String name) {
         this.id = id;
         this.state = state;
+        this.name = name;
     }
 
     public int getId() {
@@ -31,7 +29,12 @@ public class Serie {
         this.state = state;
     }
 
+    public String getName() {
+        return name;
+    }
 
-
+    public void setName(String name) {
+        this.name = name;
+    }
 
 }

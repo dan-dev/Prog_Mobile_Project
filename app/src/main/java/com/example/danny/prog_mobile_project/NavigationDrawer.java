@@ -60,7 +60,7 @@ public class NavigationDrawer extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation_drawer, menu);
-        return true;
+        return false;
     }
 
     @Override
@@ -97,25 +97,15 @@ public class NavigationDrawer extends AppCompatActivity
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_layout, fragment).addToBackStack(null).commit();
 
-        } else if (id == R.id.nav_slideshow) {
+        } /*else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
-            DataBaseBuilder dataBaseBuilder = new DataBaseBuilder(this);
-
-            /*SQLiteDatabase liteDatabase = null;
-            liteDatabase = this.openOrCreateDatabase("DatabaseName", MODE_PRIVATE, null);
-
-            liteDatabase.execSQL("CREATE TABLE IF NOT EXISTS series (serie VARCHAR, state VARCHAR, count INTEGER);");
-
-            liteDatabase.execSQL("INSERT INTO series (serie, state, count) VALUES ('Scrubs', 'Finished', 15)");*/
-
-            Toast.makeText(this, "Database created.", Toast.LENGTH_SHORT);
 
         } else if (id == R.id.nav_send) {
 
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

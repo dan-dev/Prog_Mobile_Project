@@ -12,12 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class SearchFragment extends Fragment implements View.OnClickListener {
-
 
     public SearchFragment() {
         // Required empty public constructor

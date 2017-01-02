@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.sql.SQLData;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class DataBaseBuilder extends SQLiteOpenHelper{
     private static final String TABLE_SERIE = "serie";
     private static final String COLUMN_SERIE_ID = "id";
     private static final String COLUMN_SERIE_STATE = "state";
+    private static final String COLUMN_SERIE_NAME = "name";
 
     private static final String LOG = "DataBaseBuilder";
 
@@ -28,22 +30,16 @@ public class DataBaseBuilder extends SQLiteOpenHelper{
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
 
-    //SQLiteDatabase liteDatabase;
-
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        Log.d("---","-----------------------created");
 
         String CREATE_SERIES_TABLE = "CREATE TABLE " + TABLE_SERIE
-                + "(" + COLUMN_SERIE_ID + "INTEGER PRIMARY KEY, "
-                + COLUMN_SERIE_STATE + "TEXT" + ")";
+                + "( " + COLUMN_SERIE_ID + " INTEGER PRIMARY KEY, "
+                + COLUMN_SERIE_STATE + " TEXT, "
+                + COLUMN_SERIE_NAME + " TEXT "
+                + " )";
         sqLiteDatabase.execSQL(CREATE_SERIES_TABLE);
-
-
-        /*sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS series (serie VARCHAR, state VARCHAR, count INTEGER);");
-        sqLiteDatabase.execSQL("INSERT INTO series (serie, state, count) VALUES ('Scrubs', 'Finished', 15);");
-        sqLiteDatabase.execSQL("INSERT INTO series (serie, state, count) VALUES ('Scrubs', 'Finished', 15);");
-        sqLiteDatabase.execSQL("INSERT INTO series (serie, state, count) VALUES ('Scrubs', 'Finished', 15);");
-        sqLiteDatabase.execSQL("INSERT INTO series (serie, state, count) VALUES ('Scrubs', 'Finished', 15);");*/
     }
 
     @Override
@@ -53,25 +49,58 @@ public class DataBaseBuilder extends SQLiteOpenHelper{
     }
 
     public void addSerie(Serie serie){
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_SERIE_STATE, serie.getState());
+        if(checkIfExists(serie)){
+            updateSerie(serie);
+        }
+        else {
+            addNewSerie(serie);
+        }
+    }
+
+    public void addNewSerie(Serie serie){
         SQLiteDatabase database = this.getWritableDatabase();
-        database.insert(TABLE_SERIE, null, values);
+        String query = "INSERT INTO " + TABLE_SERIE + "( " + COLUMN_SERIE_ID + ", "
+                + COLUMN_SERIE_STATE + ", " + COLUMN_SERIE_NAME
+                + ") VALUES (" + serie.getId() + ", '" + serie.getState()
+                + "', '" + serie.getName() + "');";
+        database.execSQL(query);
         database.close();
     }
 
-    public ArrayList<Serie> getSeries(String serie){
+    public void updateSerie(Serie serie){
+        SQLiteDatabase database = this.getWritableDatabase();
+        String query = "UPDATE " + TABLE_SERIE + " SET "
+                + COLUMN_SERIE_STATE + " = '" + serie.getState()
+                + "' WHERE " + COLUMN_SERIE_ID + " = " + serie.getId() + ";" ;
+        database.execSQL(query);
+        database.close();
+    }
+
+    public boolean checkIfExists(Serie serie){
+        SQLiteDatabase database = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_SERIE
+                + " WHERE " + COLUMN_SERIE_ID + " = " + serie.getId() + ";";
+        Cursor cursor = database.rawQuery(query, null);
+        if(cursor.getCount()>0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public ArrayList<Serie> getSeries(){
         ArrayList<Serie> list = new ArrayList<Serie>();
-        String query = "SELECT .* FROM " + TABLE_SERIE;
+        String query = "SELECT * FROM " + TABLE_SERIE;
         SQLiteDatabase sq = this.getWritableDatabase();
         Cursor cursor = sq.rawQuery(query, null);
         while (cursor.moveToNext()){
             Serie ser = new Serie();
             ser.setId(cursor.getInt(0));
             ser.setState(cursor.getString(1));
+            ser.setName(cursor.getString(2));
             list.add(ser);
         }
         return list;
     }
-
 }

@@ -1,28 +1,35 @@
 package com.example.danny.prog_mobile_project;
 
 
+import android.app.Dialog;
+import android.content.ClipData;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class SerieFragment extends Fragment {
-
 
     public SerieFragment() {
         // Required empty public constructor
@@ -33,8 +40,13 @@ public class SerieFragment extends Fragment {
     TextView genreText;
     TextView statusText;
     TextView scoreText;
-
     ImageView imageView;
+    Button addButton;
+
+    String titleStr;
+
+    int id;
+    private DataBaseBuilder db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,8 +54,8 @@ public class SerieFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_serie, container, false);
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        db = new DataBaseBuilder(getActivity());
+        db.getWritableDatabase();
 
         titleText = (TextView) view.findViewById(R.id.text_title);
         descripText = (TextView) view.findViewById(R.id.text_description);
@@ -51,29 +63,57 @@ public class SerieFragment extends Fragment {
         genreText = (TextView) view.findViewById(R.id.text_genre);
         statusText = (TextView) view.findViewById(R.id.text_status);
         scoreText = (TextView) view.findViewById(R.id.text_score);
+        addButton = (Button) view.findViewById(R.id.button_add);
 
-        String titleStr = getArguments().getString("title");
+        id = getArguments().getInt("id");
+        titleStr = getArguments().getString("title");
         String descripStr = getArguments().getString("description");
         String image = getArguments().getString("image");
         String genre = getArguments().getString("genre");
         String status = getArguments().getString("status");
         String score = getArguments().getString("score");
 
-        titleText.setText(titleStr);
-
         try {
-            Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(image).getContent());
-            imageView.setImageBitmap(bitmap);
-        } catch (IOException e) {
+            imageView.setImageBitmap(new ImageHandler().execute(image).get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
             e.printStackTrace();
         }
 
-        //descripText.setText(descripStr);
-        descripText.setText("Description:\n" + descripStr);
+        titleText.setText(titleStr);
+        descripText.setText("Description:\n" + Html.fromHtml(descripStr));
         genreText.setText("Genre: " + genre);
         statusText.setText("Status: " + status);
         scoreText.setText("Score: " + score);
 
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CreateDialog();
+            }
+        });
         return view;
+    }
+
+    public Dialog CreateDialog(){
+        final String[] str = {"Completed", "Watching", "Plan to Watch"};
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Choose an option:");
+        builder.setItems(str, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                addToDB(str[i]);
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
+        return builder.create();
+    }
+
+    public void addToDB(String s){
+        db.addSerie(new Serie(id, s, titleStr));
+        Toast.makeText(getContext(), "Show is now marked as: " + s, Toast.LENGTH_SHORT).show();
     }
 }

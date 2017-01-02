@@ -1,55 +1,70 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.danny.prog_mobile_project.SerieFragment">
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.example.danny.prog_mobile_project.SerieFragment">
 
-    <ImageView
-        android:id="@+id/image"
+            <ImageView
+                android:id="@+id/image"
 
-        android:layout_width="175dp"
-        android:layout_height="250dp" />
+                android:layout_width="175dp"
+                android:layout_height="250dp" />
 
-    <TextView
-        android:id="@+id/text_title"
+            <TextView
+                android:id="@+id/text_title"
 
-        android:layout_toRightOf="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+                android:layout_toRightOf="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/text_genre"
+            <TextView
+                android:id="@+id/text_genre"
 
-        android:layout_below="@+id/text_title"
-        android:layout_toRightOf="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+                android:layout_below="@+id/text_title"
+                android:layout_toRightOf="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/text_status"
+            <TextView
+                android:id="@+id/text_status"
 
-        android:layout_toRightOf="@+id/image"
-        android:layout_below="@+id/text_genre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+                android:layout_toRightOf="@+id/image"
+                android:layout_below="@+id/text_genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/text_score"
+            <TextView
+                android:id="@+id/text_score"
 
-        android:layout_below="@id/text_status"
-        android:layout_toRightOf="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+                android:layout_below="@id/text_status"
+                android:layout_toRightOf="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/text_description"
+            <Button
+                android:id="@+id/button_add"
+                android:text="Add to my list"
 
-        android:layout_below="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+                android:layout_toRightOf="@+id/image"
+                android:layout_below="@id/text_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
+            <TextView
+                android:id="@+id/text_description"
 
+                android:layout_below="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
 
-</RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>
