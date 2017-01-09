@@ -1,13 +1,9 @@
 package com.example.danny.prog_mobile_project;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
-import java.sql.SQLData;
 import java.util.ArrayList;
 
 public class DataBaseBuilder extends SQLiteOpenHelper{
@@ -32,8 +28,6 @@ public class DataBaseBuilder extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        Log.d("---","-----------------------created");
-
         String CREATE_SERIES_TABLE = "CREATE TABLE " + TABLE_SERIE
                 + "( " + COLUMN_SERIE_ID + " INTEGER PRIMARY KEY, "
                 + COLUMN_SERIE_STATE + " TEXT, "

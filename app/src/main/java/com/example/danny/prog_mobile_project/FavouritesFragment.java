@@ -1,8 +1,5 @@
 package com.example.danny.prog_mobile_project;
 
-import android.app.Activity;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,24 +7,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FavouritesFragment extends Fragment {
 
     View view;
@@ -35,7 +24,7 @@ public class FavouritesFragment extends Fragment {
 
     private DataBaseBuilder db;
     private JSONObject jsonObject;
-    private ArrayList<String> arrayList = new ArrayList<String>();
+    private ArrayList<String> arrayList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,16 +38,9 @@ public class FavouritesFragment extends Fragment {
         db = new DataBaseBuilder(getActivity());
         db.getWritableDatabase();
 
-        /*Serie ser = new Serie(123, "Visto");
-        db.addSerie(ser);
-        Serie ser2 = new Serie(124, "A ver");
-        db.addSerie(ser2);
-        Serie ser3 = new Serie(125, "Quer ver");
-        db.addSerie(ser3);
-        Serie ser4 = new Serie(126, "Visto");
-        db.addSerie(ser4);*/
-
         final ArrayList<Serie> list = db.getSeries();
+
+        arrayList = new ArrayList<>();
 
         for (int i = 0; i < list.size() ; i++){
             arrayList.add("Name: " + list.get(i).getName() + " | State: " + list.get(i).getState());
@@ -79,6 +61,7 @@ public class FavouritesFragment extends Fragment {
                     bundle.putString("title", jsonObject.getString("name"));
                     bundle.putString("description", jsonObject.getString("summary"));
                     bundle.putString("image", jsonObject.getJSONObject("image").getString("medium"));
+                    bundle.putString("status", jsonObject.getString("status"));
                     bundle.putString("score", jsonObject.getJSONObject("rating").getString("average"));
                     bundle.putString("genre", jsonObject.getJSONArray("genres").toString().replace("\",\"", ", ").replace("[\"","").replace("\"]",""));
                     SerieFragment fragment = new SerieFragment();
@@ -95,8 +78,6 @@ public class FavouritesFragment extends Fragment {
                 }
             }
         });
-
         return view;
     }
-
 }

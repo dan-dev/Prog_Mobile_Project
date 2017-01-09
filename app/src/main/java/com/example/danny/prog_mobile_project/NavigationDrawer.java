@@ -83,14 +83,14 @@ public class NavigationDrawer extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.search) {
 
             SearchFragment fragment = new SearchFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_layout, fragment).addToBackStack(null).commit();
 
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.my_list) {
 
             FavouritesFragment fragment = new FavouritesFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =

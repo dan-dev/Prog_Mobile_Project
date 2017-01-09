@@ -1,8 +1,6 @@
 package com.example.danny.prog_mobile_project;
 
 import android.os.AsyncTask;
-import android.util.Log;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -25,6 +23,7 @@ public class SeriesParser extends AsyncTask<String, Void, String>{
             else {
                 url = new URL("http://api.tvmaze.com/search/shows?q=" + strings[0]);
             }
+
             scan = new Scanner(url.openStream());
             while (scan.hasNext()){
                 str += scan.nextLine();
